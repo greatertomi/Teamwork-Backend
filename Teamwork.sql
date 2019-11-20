@@ -1,33 +1,40 @@
-CREATE TABLE employees(
-  employeeid serial,
-  firstname character varying(50),
-  lastname character varying(50),
-  email character varying(50),
-  employee_pwd character varying(50),
-  gender character varying(10),
-  job_role character varying(50),
-  department character varying (80),
-  employee_address character varying (100) 
+CREATE TABLE employees
+(
+  employeeid SERIAL PRIMARY KEY,
+  firstname CHARACTER varying(50),
+  lastname CHARACTER varying(50),
+  email CHARACTER varying(50),
+  employee_pwd CHARACTER varying(50),
+  gender CHARACTER varying(10),
+  job_role CHARACTER varying(50),
+  department CHARACTER varying (80),
+  employee_address CHARACTER varying (100)
 );
 
-CREATE TABLE posts (
-  postid serial,
-  post_type int, /* 1 for text and 2 for images*/
-  title character varying(50),
-  article character varying(400),
-  imgURL character varying(100),
-  createdon timestamp  
+CREATE TABLE posts
+(
+  postid SERIAL PRIMARY KEY,
+  post_type INT,
+  poster INT REFERENCES employees(employeeid),
+  /* 1 for text and 2 for images*/
+  title CHARACTER varying(50),
+  article varchar,
+  imgURL CHARACTER varying(100),
+  createdon timestamp
 );
 
-CREATE TABLE admins (
-  adminid serial,
-  email character varying (50),
-  admin_pwd character varying (50)
+CREATE TABLE admins
+(
+  adminid SERIAL PRIMARY KEY,
+  email CHARACTER varying (50),
+  admin_pwd CHARACTER varying (50)
 );
 
-CREATE TABLE comments (
-  commentid serial,
-  postid int,
-  comment character varying (50),
+CREATE TABLE comments
+(
+  commentid SERIAL PRIMARY KEY,
+  postid INT REFERENCES posts(postid),
+  comment CHARACTER varying (50),
+  commenter INT REFERENCES employees(employeeid),
   createdon timestamp
 );
