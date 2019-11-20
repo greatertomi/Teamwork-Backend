@@ -9,8 +9,8 @@ router.get('/', (request, response) => {
   pool.query('SELECT * FROM employees', (err, res) => {
     if (err) console.log(err);
 
-    console.log(res);
-    response.status(200).json(res.rows.count);
+    // console.log(res.rows);
+    response.status(200).json(res.rows);
   });
 });
 
